@@ -1,7 +1,7 @@
 
 #include "frame.h"
 #include "pointcloudClustering.h"
-#include "featuresRGBD_skel.cpp"
+//#include "featuresRGBD_skel.cpp"
 #include "features_mod.cpp"
 
 
@@ -342,9 +342,9 @@
         return r1 - r2;
     }
 
-    float ObjectProfile::pushHogDiffFeats(const ObjectProfile & other, vector<float> & feats) {
+   /* float ObjectProfile::pushHogDiffFeats(const ObjectProfile & other, vector<float> & feats) {
         avgHOGFeatsOfObject.pushBackAllDiffFeats(other.avgHOGFeatsOfObject, feats);
-    }
+    }*/
 
     float ObjectProfile::getCoplanarity(const ObjectProfile & other) {
         float dotproduct = getNormalDotProduct(other);
@@ -459,7 +459,7 @@
 
     /* This function takes a HOG object and aggregates the HOG features for each stripe in the chunk.
      It populates aggHogVec with one HOGFeaturesOfBlock object for each stripe in the image. */
-    void Frame::computeAggHogBlock(int numStripes, int minXBlock, int maxXBlock, int minYBlock, int maxYBlock, HOGFeaturesOfBlock &hogObject) {
+  /*  void Frame::computeAggHogBlock(int numStripes, int minXBlock, int maxXBlock, int minYBlock, int maxYBlock, HOGFeaturesOfBlock &hogObject) {
         // The number of blocks in a single column of blocks in one stripe in the image.
         double stripeSize = ((double) (maxYBlock - minYBlock)) / numStripes;
 
@@ -480,9 +480,9 @@
             HOGFeaturesOfBlock::aggregateFeatsOfBlocks(hogvec, hogObject);
             // hogObject.push_back(agg_hfob);
         }
-    }
+    }*/
 
-    void Frame::computeObjectHog() {
+    /*void Frame::computeObjectHog() {
         const int numStripes = 1;
         // for each object 
         int count = 0;
@@ -531,7 +531,7 @@
             }
             cout << endl;
         }
-    }
+    }*/
 
     void Frame::savePointCloud() {
         pcl::io::savePCDFileBinary("test_pcd.pcd", cloud);
@@ -558,7 +558,11 @@
 
         char filename[30];
         sprintf(filename, "image_obj_%d.png", obj.objID);
-        HOG::saveFloatImage(filename, image);
+        IplImage * saveImage = cvCreateImage ( cvGetSize ( image ), IPL_DEPTH_32F, 3 );
+ 		cvConvertScale ( image, saveImage, 255, 0 );
+  		cvSaveImage( filename, saveImage);
+  		cvReleaseImage ( &saveImage );
+
         cvReleaseImage(&image);
 
 
@@ -583,7 +587,12 @@
 
         char filename[30];
         sprintf(filename, "image.png");
-        HOG::saveFloatImage(filename, image);
+        IplImage * saveImage = cvCreateImage ( cvGetSize ( image ),
+                                             IPL_DEPTH_32F, 3 );
+        cvConvertScale ( image, saveImage, 255, 0 );
+        cvSaveImage( filename, saveImage);
+        cvReleaseImage ( &saveImage );
+
         cvReleaseImage(&image);
 
 
@@ -602,7 +611,7 @@
         sequenceId = seqId;
         findTable = true;
         createPointCloud(IMAGE, transformfile);
-        savePointCloud();
+        //savePointCloud();
         skeleton.initialize(data, pos_data, transformfile);
         //this->objFeats=objFeats;
         //cout << objFeats.size()<< endl;
@@ -616,8 +625,8 @@
         }
 
 
-        computeHogDescriptors();
-        computeObjectHog();
+        //computeHogDescriptors();
+        //computeObjectHog();
     }
 
     Frame::Frame(int ***IMAGE, double** data, double **pos_data, vector<vector<double> > &objFeats, string seqId, int fnum) {
@@ -628,12 +637,9 @@
         createPointCloud(IMAGE);
         //savePointCloud();
         skeleton.initialize(data, pos_data);
-        FeaturesSkelRGBD *features_skeleton_rgbd = new FeaturesSkelRGBD(false);
+        //FeaturesSkelRGBD *features_skeleton_rgbd = new FeaturesSkelRGBD(false);
         int numFeats;
-        rgbdskel_feats =  features_skeleton_rgbd->computeFeatures( IMAGE, data, pos_data, numFeats,
-			  true, true, true,
-			  true, true, true,
-			  true, true, true);
+        //rgbdskel_feats =  features_skeleton_rgbd->computeFeatures( IMAGE, data, pos_data, numFeats,  true, true, true,  true, true, true,  true, true, true);
         //this->objFeats=objFeats;
         //cout << objFeats.size()<< endl;
         int count = 0;
@@ -646,8 +652,8 @@
         }
         
 
-        computeHogDescriptors();
-        computeObjectHog();
+        //computeHogDescriptors();
+        //computeObjectHog();
     }
     
     Frame::Frame(int ***IMAGE, double** data, double **pos_data, vector<vector<double> > &objFeats, string seqId, int fnum, string transformfile, vector<vector<int> > &objPCInds) {
@@ -670,8 +676,8 @@
         }
 
 
-        computeHogDescriptors();
-        computeObjectHog();
+        //computeHogDescriptors();
+        //computeObjectHog();
     }
 
     Frame::Frame(int ***IMAGE, double** data, double **pos_data, vector<vector<double> > &objFeats, string seqId, int fnum, string transformfile, vector<vector<int> > &objPCInds, bool partial) {
@@ -698,8 +704,8 @@
         }
 
 
-        computeHogDescriptors();
-        computeObjectHog();
+        //computeHogDescriptors();
+        //computeObjectHog();
     }
 
     Frame::Frame(int ***IMAGE, double** data, double **pos_data, vector<vector<double> > &objFeats, string seqId, int fnum, string transformfile, vector<vector<int> > &objPCInds, vector<string> types) {
@@ -723,8 +729,8 @@
         }
 
 
-        computeHogDescriptors();
-        computeObjectHog();
+        //computeHogDescriptors();
+        //computeObjectHog();
     }
      
     Frame::~Frame() {

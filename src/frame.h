@@ -7,7 +7,7 @@
 #include <pcl/io/pcd_io.h>
 #include "frame_skel.h"
 //#include "Point2D.h"
-#include "HOG.cpp"
+//#include "HOG.cpp"
 //#include "HOGFeaturesOfBlock.h"
 //#include "includes/point_types.h"
 
@@ -33,7 +33,7 @@ class ObjectProfile {
 public:
     vector<double> features;
     pcl::PointCloud<PointT> cloud;
-    HOGFeaturesOfBlock avgHOGFeatsOfObject;
+    //HOGFeaturesOfBlock avgHOGFeatsOfObject;
     float avgH;
     float avgS;
     float avgV;
@@ -169,8 +169,8 @@ private:
 
 
     vector<vector<double> > objFeats;
-    HOG hog;
-    std::vector<HOGFeaturesOfBlock> aggHogVec;
+    //HOG hog;
+    //std::vector<HOGFeaturesOfBlock> aggHogVec;
     static const int BLOCK_SIDE = 8;
     map<int, int> tablePoints;
     bool findTable;
@@ -184,13 +184,13 @@ private:
 
     /* This function takes a HOG object and aggregates the HOG features for each stripe in the chunk.
      It populates aggHogVec with one HOGFeaturesOfBlock object for each stripe in the image. */
-    void computeAggHogBlock(int numStripes, int minXBlock, int maxXBlock, int minYBlock, int maxYBlock, HOGFeaturesOfBlock &hogObject);
+//    void computeAggHogBlock(int numStripes, int minXBlock, int maxXBlock, int minYBlock, int maxYBlock, HOGFeaturesOfBlock &hogObject);
 
 
-    void computeObjectHog();
+ //   void computeObjectHog();
 
 
-    void computeHogDescriptors() ;
+   // void computeHogDescriptors() ;
 
 
 
@@ -205,7 +205,7 @@ public:
     vector<double> rgbdskel_feats;
 
 
-    void printHOGFeats();
+    //void printHOGFeats();
 
 
     void savePointCloud();
