@@ -3,11 +3,11 @@ import sys, os, os.path, glob
 
 # Come up with the list of files to compile.
 ext_files  = glob.glob('*.c')
-ext_files.extend(os.path.join('svm_prev','svm_light',  '%s.c'%b) for b in [
+ext_files.extend(os.path.join('..','svm_light',  '%s.c'%b) for b in [
     'svm_common', 'svm_learn', 'svm_hideo'])
-ext_files.extend(os.path.join('svm_prev','svm_struct', '%s.c'%b) for b in [
+ext_files.extend(os.path.join('..','svm_struct', '%s.c'%b) for b in [
     'svm_struct_common', 'svm_struct_learn'])
-ext_files.append(os.path.join('svm_prev','svm_struct_api.c'))
+ext_files.append(os.path.join('..','svm_struct_api.c'))
 
 libdirs, incdirs = [], []
 
