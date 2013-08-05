@@ -420,8 +420,8 @@ def get_examples(filename):
     num_obj_skel_feats=0
     for aid in aidList:
         if HALLUCINATION == "true":
-            Labeling = readLabelingFile(PATH + '/activity_project/branches/action_prediction_pcl/build/hal_labeling_'+aid+'.txt')
-        Features= readFrameFeatures(PATH + '/activity_project/branches/action_prediction_pcl/build/orig_'+ aid + "_")
+            Labeling = readLabelingFile( 'hal_labeling_'+aid+'.txt')
+        Features= readFrameFeatures( 'orig_'+ aid + "_")
         IntegralFeatures = getAllIntegralFrames(Features)
         (obj_feats,skel_feats,obj_obj_feats,skel_obj_feats) = getSegmentFeatures(aid,0,2,0)
         if(len(skel_feats)>num_skel_feats):
@@ -495,10 +495,10 @@ def get_examples(filename):
         print "HALLU: ", HALLUCINATION;
         if(HALLUCINATION == "true"):
             print "reading hal features!!"
-            Features= readFrameFeatures(PATH + '/activity_project/branches/action_prediction_pcl/build/hal_'+ aid + "_")
-            Labeling = readLabelingFile(PATH + '/activity_project/branches/action_prediction_pcl/build/hal_labeling_'+aid+'.txt')
+            Features= readFrameFeatures( 'hal_'+ aid + "_")
+            Labeling = readLabelingFile('hal_labeling_'+aid+'.txt')
         else:
-            Features= readFrameFeatures(PATH + '/activity_project/branches/action_prediction_pcl/build/orig_'+ aid + "_")
+            Features= readFrameFeatures( 'orig_'+ aid + "_")
         IntegralFeatures = getAllIntegralFrames(Features)
         X_multiple = []
         Y_multiple = []
