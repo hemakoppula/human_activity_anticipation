@@ -155,7 +155,7 @@ void readLabelFile() {
 
 void readSegmentsFile() {
 	//const string labelfile = dataLocation + "Segmentation.txt";
-	const string labelfile = "Segmentation.txt";
+	const string labelfile = dataLocation + "Segmentation.txt";
 
 	ifstream file((char*) labelfile.c_str(), ifstream::in);
 
