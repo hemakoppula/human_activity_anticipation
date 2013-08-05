@@ -402,9 +402,9 @@ def get_examples(filename):
 
     ''' Read the labeling file '''
     if NULL_FILTERED == "true":
-        Labeling = readLabelingFile(PATH + '/activity_project/branches/action_prediction/labeling_all_filtered.txt')
+        Labeling = readLabelingFile('../data/labeling_all_filtered.txt')
     else:
-        Labeling = readLabelingFile(PATH + '/activity_project/branches/action_prediction/labeling_ijrr_sampled.txt')
+        Labeling = readLabelingFile('../data/labeling_ijrr_sampled.txt')
 
     ''' Read the frame features  '''
     #Features= readFrameFeatures(PATH + 'object_affordance_detection/activity_detection/frame_features/')
