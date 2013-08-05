@@ -18,8 +18,8 @@
 #include <cmath>
 #include <dirent.h>
 #include "constants.h"
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+//#include <opencv/cv.h>
+//#include <opencv/highgui.h>
 
 //#include "Point2D.h"
 //#include "HOGFeaturesOfBlock.h"
