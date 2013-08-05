@@ -34,8 +34,6 @@ global CLASSIFY_METHOD
 global LEARN_METHOD
 global ATTRIBUTE_METHOD
 global LOSS_METHOD
-global OBJECT_MAP_FILE
-global ATTRIBUTE_MAP_FILE
 global SINGLE_FRAME
 global TEMPORAL
 global NODEONLY
@@ -89,10 +87,8 @@ NUM_CLASSES = 0
 # default options
 LOSS_METHOD = "micro"
 LEARN_METHOD = "objassoc"
-OBJECT_MAP_FILE = "/opt/ros/unstable/stacks/svm-python-v204/objectMap.txt"
 CLASSIFY_METHOD  = "sum1.IP"
 ATTRIBUTE_METHOD = "false"
-ATTRIBUTE_MAP_FILE = "/opt/ros/unstable/stacks/svm-python-v204/attributeMap.txt"
 TEMPORAL = "false"
 NODEONLY = "false"
 
@@ -123,9 +119,7 @@ def parse_parameters(sparm):
     print sparm.argv
     global LEARN_METHOD
     global LOSS_METHOD
-    global OBJECT_MAP_FILE
     global ATTRIBUTE_METHOD
-    global ATTRIBUTE_MAP_FILE
     global SINGLE_FRAME
     global TEMPORAL
     global NODEONLY
@@ -133,7 +127,6 @@ def parse_parameters(sparm):
     # set default values
     LOSS_METHOD = "micro"
     LEARN_METHOD = "objassoc"
-    OBJECT_MAP_FILE = "/opt/ros/unstable/stacks/svm-python-v204/objectMap.txt"
     for i in xrange(0,len(sparm.argv)/2):
         #print i,  len(sparm.argv)/2
         opt = temp_arg_list.pop(0)
@@ -146,10 +139,6 @@ def parse_parameters(sparm):
         if(opt == "--am"):
             print "setting am to ", val
             ATTRIBUTE_METHOD = val
-        if(opt == "--omf"):
-            OBJECT_MAP_FILE = val
-        if(opt == "--amf"):
-            ATTRIBUTE_MAP_FILE = val
         if(opt == "--sf"):
             SINGLE_FRAME= val
         if(opt == "--temporal"):
@@ -167,9 +156,7 @@ def parse_parameters_classify(attribute, value):
     global CLASSIFY_METHOD
     global LEARN_METHOD
     global LOSS_METHOD
-    global OBJECT_MAP_FILE
     global ATTRIBUTE_METHOD
-    global ATTRIBUTE_MAP_FILE
     global SINGLE_FRAME
     global TEMPORAL
     global NODEONLY
@@ -182,10 +169,6 @@ def parse_parameters_classify(attribute, value):
     if(attribute == "--lm"):
         LEARN_METHOD = value
         #print "setting lm to ", LEARN_METHOD
-    if(attribute == "--omf"):
-        OBJECT_MAP_FILE = value
-    if(attribute == "--amf"):
-        ATTRIBUTE_MAP_FILE = value
     if(attribute == "--cm"):
         CLASSIFY_METHOD= value
     if(attribute == "--am"):
@@ -982,11 +965,11 @@ def readFile(filename):
 
 def readLabelingFile(filename):
     global NULL_FILTERED,PATH
-    readAffmap(PATH + 'activity_project/branches/action_prediction/affmap.txt')
+    readAffmap( '../affmap.txt')
     if NULL_FILTERED == "true":
-        readClassmap(PATH + 'activity_project/branches/action_prediction/classmap_filtered.txt')
+        readClassmap( '../classmap_filtered.txt')
     else:
-        readClassmap(PATH + 'activity_project/branches/action_prediction/classmap.txt')
+        readClassmap( '../classmap.txt')
     data = readFile(filename)
     labeling = {}
     segmentation = {}
