@@ -1,8 +1,9 @@
 
 #include <vector>
 #include <assert.h>
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+//#include <opencv/cv.h>
+//#include <opencv/highgui.h>
+#include <opencv2/opencv.hpp>
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 #include "frame_skel.h"

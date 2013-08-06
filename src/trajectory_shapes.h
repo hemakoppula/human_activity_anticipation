@@ -12,8 +12,8 @@
 #include <cmath>
 #include <dirent.h>
 #include "constants.h"
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+//#include <opencv/cv.h>
+//#include <opencv/highgui.h>
 #include <pcl/point_types.h>
 #include "includes/point_types.h"
 #include "includes/CombineUtils.h"
