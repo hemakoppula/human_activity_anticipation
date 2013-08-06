@@ -64,7 +64,9 @@ global MIDPOINT_TEMPORAL
 global NULL_FILTERED
 global PATH
 global PARTIAL
+global ANTICIPATING
 
+ANTICIPATING = True;
 PARTIAL = "true";
 FOLD = "1"
 global HALLUCINATION
@@ -125,6 +127,7 @@ def parse_parameters(sparm):
     global NODEONLY
     global FOLD
     # set default values
+    ANTICIPATING = False
     LOSS_METHOD = "micro"
     LEARN_METHOD = "objassoc"
     for i in xrange(0,len(sparm.argv)/2):
@@ -217,17 +220,25 @@ def getBinTresholds(feats):
 def getBins(aidList):
     global num_obj_feats,num_skel_feats,num_obj_t_feats,num_skel_t_feats,num_obj_obj_feats,num_obj_skel_feats,skelFeats_binTh,skelTFeats_binTh,objFeats_binTh,objTFeats_binTh,objObjFeats_binTh,skelObjFeats_binTh
     global objMap
+    global FOLD,ANTICIPATING 
+    if ANTICIPATING: 
+      if (os.path.isfile("fold"+FOLD+"/binStumps_skel.txt")):
+        skelFeats_binTh = [l.strip().split(',') for l in file("fold"+FOLD+"/binStumps_skel.txt")]
+        objFeats_binTh = [l.strip().split(',') for l in file("fold"+FOLD+"/binStumps_obj.txt")]
+        skelTFeats_binTh = [l.strip().split(',') for l in file("fold"+FOLD+"/binStumps_skel_temporal.txt")]
+        objTFeats_binTh = [l.strip().split(',') for l in file("fold"+FOLD+"/binStumps_obj_temporal.txt")]
+        skelObjFeats_binTh = [l.strip().split(',') for l in file("fold"+FOLD+"/binStumps_skel_obj.txt")]
+        objObjFeats_binTh = [l.strip().split(',') for l in file("fold"+FOLD+"/binStumps_obj_obj.txt")]
+    else:
 
-    if (os.path.isfile("binStumps_skel.txt")):
+      if (os.path.isfile("binStumps_skel.txt")):
         skelFeats_binTh = [l.strip().split(',') for l in file("binStumps_skel.txt")]
         objFeats_binTh = [l.strip().split(',') for l in file("binStumps_obj.txt")]
-        #print skelFeats_binTh
         skelTFeats_binTh = [l.strip().split(',') for l in file("binStumps_skel_temporal.txt")]
         objTFeats_binTh = [l.strip().split(',') for l in file("binStumps_obj_temporal.txt")]
         skelObjFeats_binTh = [l.strip().split(',') for l in file("binStumps_skel_obj.txt")]
         objObjFeats_binTh = [l.strip().split(',') for l in file("binStumps_obj_obj.txt")]
-    else:
-
+      else:
         all_obj_feats = zeros((1,num_obj_feats))
         all_skel_feats = zeros((1,num_skel_feats))
         all_obj_obj_feats = zeros((1,num_obj_obj_feats))
@@ -240,7 +251,7 @@ def getBins(aidList):
                 count+=1
                 sf = int(Labeling[0][aid][segment][0])-1
                 ef = int(Labeling[0][aid][segment][1])-1
-                #print aid,sf,ef
+                print aid,sf,ef
                 (obj_feats,skel_feats,obj_obj_feats,skel_obj_feats) = getSegmentFeatures(aid,sf,ef,0)
                 #print shape(all_skel_feats), shape(mat(skel_feats))
                 all_skel_feats = concatenate((all_skel_feats,mat(skel_feats)))
