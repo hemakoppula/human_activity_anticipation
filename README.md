@@ -75,7 +75,9 @@ Commands to install the required dependencies and run anticipation code on Subje
     cat Subject1_annotations/*/activityLabel.txt  | grep -v END > activityLabel.txt
     cat Subject1_annotations/*/labeling.txt > labeling.txt
     
+    
     # run anticipation code 
+    cd ../build/
     ./predict_seg ../data/ activityLabel.txt 1
     
 
